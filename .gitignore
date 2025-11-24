@@ -27,3 +27,4 @@ share/python-wheels/
 MANIFEST
 
 analysis_for_paper/
+tests/test_data/paper_validation_files/*
