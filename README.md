@@ -50,3 +50,5 @@ The tool merges the two metabolite summary statistics files based on common SNPs
 -   **Operating System**: The software has been tested on macOS. It is expected to be compatible with other Unix-like systems such as Linux.
 -   **Python**: Python >=3.13 is required.
 -   **Hardware**: No non-standard hardware is required for use.
+
+Installation takes approximately a minute to run. 
