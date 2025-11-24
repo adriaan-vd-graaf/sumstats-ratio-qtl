@@ -26,6 +26,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+.idea/*
 analysis_for_paper/
 tests/test_data/paper_validation_files/*
 create_small_test_files.py
