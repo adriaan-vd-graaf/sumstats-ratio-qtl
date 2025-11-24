@@ -43,3 +43,10 @@ This command will generate a new file named `ratio_output.parquet` containing th
 ## How it works
 
 The tool merges the two metabolite summary statistics files based on common SNPs. It then calculates the optimal correlation between the two metabolites that results in a genomic inflation factor (lambda) of 1 for the ratio. This correlation is then used to calculate the beta, standard error, and Z-score for the ratio of the two metabolites.
+
+## System Requirements
+
+-   **Software Version**: This tool has been tested with `sumstats-ratio-qtl` version `0.1.0`.
+-   **Operating System**: The software has been tested on macOS. It is expected to be compatible with other Unix-like systems such as Linux.
+-   **Python**: Python >=3.13 is required.
+-   **Hardware**: No non-standard hardware is required for use.
