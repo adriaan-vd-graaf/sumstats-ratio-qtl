@@ -4,9 +4,25 @@ import tempfile
 import subprocess
 import os
 
+
+def get_test_data_dir():
+    """
+    Determines which test data directory to use.
+    If the large files are present, use them. Otherwise, use the small files.
+    """
+    big_file_dir = "tests/test_data/paper_validation_files"
+    small_file_dir = "tests/test_data/small_paper_validation_files"
+
+    if os.path.exists(big_file_dir) and any(f.endswith('.parquet.gz') for f in os.listdir(big_file_dir)):
+        return big_file_dir
+    else:
+        return small_file_dir
+
+
 def test_cli_interface():
     # Define the paths to the test files
-    met1_met_2_ratio_file = "tests/test_data/paper_validation_files/GCST90200793.parquet.gz"
+    test_data_dir = get_test_data_dir()
+    met1_met_2_ratio_file = os.path.join(test_data_dir, "GCST90200793.parquet.gz")
 
     full_df = pd.read_parquet(met1_met_2_ratio_file)
 

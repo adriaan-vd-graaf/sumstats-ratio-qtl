@@ -38,21 +38,21 @@ def calculate_ratio(met1_file, met2_file, maf_threshold=0.01):
     met1 = pd.read_parquet(met1_file)
     met2 = pd.read_parquet(met2_file)
 
-    print(f'{met1.shape=}, {met2.shape=}')
     ratio_sumstat = pd.merge(met1, met2, suffixes=['_1', '_2'], how='inner',
                                on=['base_pair_location', 'chromosome', 'effect_allele', 'other_allele',])
-    print(f'{ratio_sumstat.shape=}')
 
-    # ratio_sumstat = ratio_sumstat.dropna(subset=['beta_1', 'se_1', 'z_1', 'beta_2', 'se_2', 'z_2'])
 
     ratio_sumstat['maf'] = ratio_sumstat['effect_allele_frequency_1'].apply(eaf_to_maf)
-    # ratio_sumstat = ratio_sumstat[ratio_sumstat.maf > maf_threshold]
+
 
     ratio_sumstat['z_1'] = ratio_sumstat['beta_1'] / ratio_sumstat['se_1']
     ratio_sumstat['z_2'] = ratio_sumstat['beta_2'] / ratio_sumstat['se_2']
     
     result = root_scalar(objective, args=(ratio_sumstat,), bracket=[-1, 1], method='brentq')
     correlation = result.root
+
+    ratio_sumstat = ratio_sumstat[ratio_sumstat.maf > maf_threshold]
+
 
     se_calc = np.sqrt(
         ratio_sumstat['se_1'] ** 2 + ratio_sumstat['se_2'] ** 2 - 2 * correlation * ratio_sumstat['se_1'] *
